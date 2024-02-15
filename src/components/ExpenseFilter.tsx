@@ -1,9 +1,10 @@
+import categories from "../categories";
+
 interface Props {
-  categories: string[];
   onSelectCategory: (category: string) => void;
 }
 
-const ExpenseFilter = ({ categories, onSelectCategory }: Props) => {
+const ExpenseFilter = ({ onSelectCategory }: Props) => {
   return (
     <select
       className="form-select my-3"
