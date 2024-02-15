@@ -13,6 +13,7 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           <th>Title</th>
           <th>Amount</th>
           <th>Category</th>
+          <th></th>
         </tr>
       </thead>
       {expenses.map((expense) => (
