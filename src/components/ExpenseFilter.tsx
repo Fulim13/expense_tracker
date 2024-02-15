@@ -1,22 +1,21 @@
 interface Props {
   categories: string[];
-  onSelect: (category: string) => void;
+  onSelectCategory: (category: string) => void;
 }
 
-const ExpenseFilter = ({ categories, onSelect }: Props) => {
+const ExpenseFilter = ({ categories, onSelectCategory }: Props) => {
   return (
-    <form>
-      <select
-        defaultValue="All Category"
-        className="form-select my-3"
-        onChange={(e) => onSelect(e.target.value)}
-      >
-        <option>All Category</option>
-        {categories.map((category) => (
-          <option key={category}>{category}</option>
-        ))}
-      </select>
-    </form>
+    <select
+      className="form-select my-3"
+      onChange={(e) => onSelectCategory(e.target.value)}
+    >
+      <option value="">All Category</option>
+      {categories.map((category) => (
+        <option key={category} value={category}>
+          {category}
+        </option>
+      ))}
+    </select>
   );
 };
 

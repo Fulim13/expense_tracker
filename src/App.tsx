@@ -12,26 +12,17 @@ const initialExpenses = [
 
 function App() {
   const [expenses, setExpenses] = useState(initialExpenses);
-  const [filterExpenses, setFilterExpenses] = useState(initialExpenses);
-  const [categories, setCategories] = useState([
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [categories, setCatogories] = useState([
     ...new Set(expenses.map((expense) => expense.category)),
   ]);
 
+  const visibleExpenses = selectedCategory
+    ? expenses.filter((expense) => expense.category === selectedCategory)
+    : expenses;
+
   const handleDelete = (id: number) => {
     setExpenses(expenses.filter((expense) => expense.id !== id));
-    setFilterExpenses(
-      filterExpenses.filter((filterExpense) => filterExpense.id !== id)
-    );
-  };
-
-  const handleSelect = (category: string) => {
-    if (category === "All Category") {
-      setFilterExpenses(expenses);
-      return;
-    }
-    setFilterExpenses(
-      expenses.filter((expense) => expense.category === category)
-    );
   };
 
   const handleSubmit = (title: string, amount: number, category: string) => {
@@ -40,17 +31,16 @@ function App() {
       ...expenses,
       { id: newID, title: title, amount: amount, category: category },
     ]);
-    setFilterExpenses([
-      ...expenses,
-      { id: newID, title: title, amount: amount, category: category },
-    ]);
   };
 
   return (
     <>
       <ExpenseForm categories={categories} onSubmit={handleSubmit} />
-      <ExpenseFilter onSelect={handleSelect} categories={categories} />
-      <ExpenseList expenses={filterExpenses} onDelete={handleDelete} />
+      <ExpenseFilter
+        onSelectCategory={(category) => setSelectedCategory(category)}
+        categories={categories}
+      />
+      <ExpenseList expenses={visibleExpenses} onDelete={handleDelete} />
     </>
   );
 }
