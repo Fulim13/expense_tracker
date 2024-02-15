@@ -47,7 +47,7 @@ function App() {
     <>
       <ExpenseForm categories={categories} onSubmit={handleSubmit} />
       <ExpenseFilter onSelect={handleSelect} categories={categories} />
-      <ExpenseList expenses={filterExpenses} onDelete={handleDelete} />;
+      <ExpenseList expenses={filterExpenses} onDelete={handleDelete} />
     </>
   );
 }
