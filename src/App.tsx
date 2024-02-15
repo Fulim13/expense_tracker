@@ -13,12 +13,15 @@ const initialExpenses = [
 function App() {
   const [expenses, setExpenses] = useState(initialExpenses);
   const [filterExpenses, setFilterExpenses] = useState(initialExpenses);
-  const categories = [...new Set(expenses.map((expense) => expense.category))];
+  const [categories, setCategories] = useState([
+    ...new Set(expenses.map((expense) => expense.category)),
+  ]);
 
   const handleDelete = (id: number) => {
-    const updatedExpenses = expenses.filter((expense) => expense.id !== id);
-    setExpenses(updatedExpenses);
-    setFilterExpenses(updatedExpenses);
+    setExpenses(expenses.filter((expense) => expense.id !== id));
+    setFilterExpenses(
+      filterExpenses.filter((filterExpense) => filterExpense.id !== id)
+    );
   };
 
   const handleSelect = (category: string) => {
