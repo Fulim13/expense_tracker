@@ -6,6 +6,10 @@ interface Props {
 }
 
 const ExpenseList = ({ expenses, onDelete }: Props) => {
+  const totalAmount = expenses.reduce(
+    (total, expense) => total + expense.amount,
+    0
+  );
   return (
     <table className="table table-bordered table-responsive ">
       <thead>
@@ -26,6 +30,12 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           onDelete={onDelete}
         />
       ))}
+      <tfoot>
+        <tr>
+          <td>Total: </td>
+          <td>${totalAmount}</td>
+        </tr>
+      </tfoot>
     </table>
   );
 };

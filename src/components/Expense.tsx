@@ -11,7 +11,7 @@ const Expense = ({ id, title, amount, category, onDelete }: Props) => {
     <tbody>
       <tr>
         <td>{title}</td>
-        <td>{amount}</td>
+        <td>${amount}</td>
         <td>{category}</td>
         <td>
           <button onClick={() => onDelete(id)}>Delete</button>
