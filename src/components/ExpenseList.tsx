@@ -1,17 +1,20 @@
-import Expense from "./Expense";
+interface Expense {
+  id: number;
+  title: string;
+  amount: number;
+  category: string;
+}
 
 interface Props {
-  expenses: { id: number; title: string; amount: number; category: string }[];
+  expenses: Expense[];
   onDelete: (id: number) => void;
 }
 
 const ExpenseList = ({ expenses, onDelete }: Props) => {
-  const totalAmount = expenses.reduce(
-    (total, expense) => total + expense.amount,
-    0
-  );
+  if (expenses.length === 0) return null;
+
   return (
-    <table className="table table-bordered table-responsive ">
+    <table className="table table-bordered table-responsive">
       <thead>
         <tr>
           <th>Title</th>
@@ -20,20 +23,34 @@ const ExpenseList = ({ expenses, onDelete }: Props) => {
           <th></th>
         </tr>
       </thead>
-      {expenses.map((expense) => (
-        <Expense
-          key={expense.id}
-          id={expense.id}
-          title={expense.title}
-          amount={expense.amount}
-          category={expense.category}
-          onDelete={onDelete}
-        />
-      ))}
+      <tbody>
+        {expenses.map((expense) => (
+          <tr>
+            <td>{expense.title}</td>
+            <td>${expense.amount}</td>
+            <td>{expense.category}</td>
+            <td>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => onDelete(expense.id)}
+              >
+                Delete
+              </button>
+            </td>
+          </tr>
+        ))}
+      </tbody>
       <tfoot>
         <tr>
           <td>Total: </td>
-          <td>${totalAmount}</td>
+          <td>
+            $
+            {expenses
+              .reduce((acc, expense) => acc + expense.amount, 0)
+              .toFixed(2)}
+          </td>
+          <td></td>
+          <td></td>
         </tr>
       </tfoot>
     </table>
